@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-soft-bg text-slate-900;
+  }
+}
+
+/* Custom Utilities for Health Theme */
+@layer components {
+  .card-gradient {
+    @apply bg-gradient-to-br from-white to-gray-50/50;
+  }
+}
