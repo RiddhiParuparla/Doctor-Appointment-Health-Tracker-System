@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
 import api from '../services/api';
+import { useAuth } from '../context/AuthContext';
+
 
 import { Card, CardHeader, CardContent, Button, Input } from '../components/ui';
 import { 
@@ -19,7 +20,9 @@ import {
 import { format } from 'date-fns';
 
 export default function Prescriptions() {
+  const { user } = useAuth();
   const [prescriptions, setPrescriptions] = useState([]);
+
   const [selectedPrescription, setSelectedPrescription] = useState(null);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -74,7 +77,7 @@ export default function Prescriptions() {
   };
 
   const handleDownloadAll = () => {
-    if (filteredPrescriptions.length === 0) return;
+    if (filtered.length === 0) return;
     
     let fullData = `HEALTH TRACKER - COMPLETE PRESCRIPTION HISTORY\n` +
       `==================================================\n` +
@@ -82,7 +85,8 @@ export default function Prescriptions() {
       `Patient: ${user?.name || 'Authorized User'}\n` +
       `==================================================\n\n`;
     
-    filteredPrescriptions.forEach((p, idx) => {
+    filtered.forEach((p, idx) => {
+
       fullData += `PRESCRIPTION #${idx + 1}\n` +
         `Date: ${format(new Date(p.date), 'MMM dd, yyyy')}\n` +
         `Doctor: Dr. ${p.doctorId?.userId?.name || 'Specialist'}\n` +
@@ -112,8 +116,9 @@ export default function Prescriptions() {
           </div>
           <div className="flex items-center gap-2">
             <Button variant="secondary" icon={Printer} onClick={() => window.print()}>Print History</Button>
-            <Button icon={Download} onClick={handleDownloadAll} disabled={filteredPrescriptions.length === 0}>Download All</Button>
+            <Button icon={Download} onClick={handleDownloadAll} disabled={filtered.length === 0}>Download All</Button>
           </div>
+
 
         </div>
 

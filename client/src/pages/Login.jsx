@@ -2,19 +2,25 @@ import React, { useState } from 'react';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { Mail, Lock, LogIn, ShieldCheck, Heart } from 'lucide-react';
-import { Button, Card, CardHeader, CardContent } from '../components/ui';
+import { Mail, Lock, LogIn, ShieldCheck, Heart, Zap } from 'lucide-react';
+import { Button, Card, CardHeader, CardContent, Input } from '../components/ui';
+
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError('');
     try {
+
       const res = await api.post('/api/auth/login', { email, password });
       login(res.data.user, res.data.token);
       
@@ -22,7 +28,10 @@ export default function Login() {
       navigate(homeMap[res.data.user.role]);
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
+    } finally {
+      setLoading(false);
     }
+
   };
 
   return (
