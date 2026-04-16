@@ -29,7 +29,7 @@ export default function Profile() {
     e.preventDefault();
     setSaving(true);
     try {
-      await api.put('/api/auth/update-profile', profile);
+      await api.put('/api/auth/profile', profile);
 
       alert('✅ Profile updated successfully!');
       fetchProfile();
@@ -45,8 +45,8 @@ export default function Profile() {
   return (
     <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div>
-        <h1 className="text-3xl font-black text-gray-900 tracking-tight">Patient Identity</h1>
-        <p className="text-gray-500 font-medium">Manage your personal and emergency medical information.</p>
+        <h1 className="text-3xl font-black text-gray-900 tracking-tight">Identity Vault</h1>
+        <p className="text-gray-500 font-medium">Manage your personal details and secure your medical profile.</p>
       </div>
 
       <form onSubmit={handleUpdate} className="grid grid-cols-1 md:grid-cols-2 gap-8">

@@ -125,7 +125,11 @@ export default function DoctorDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard icon={<Users className="text-blue-500" />} label="Total Patients" value={stats.totalPatients} color="blue" sub="Active Care" />
         <StatCard icon={<Calendar className="text-amber-500" />} label="Sessions Today" value={stats.appointmentsToday} color="amber" sub="Consultations" />
-        <StatCard icon={<CheckCircle className="text-emerald-500" />} label="Prescriptions" value={stats.pendingPrescriptions} color="emerald" sub="Pending Actions" />
+        
+        <div onClick={() => navigate('/doctor/schedule')} className="cursor-pointer transition-transform hover:scale-105">
+           <StatCard icon={<Clock className="text-emerald-500" />} label="Manage Schedule" value="Open" color="emerald" sub="Practice Hours" />
+        </div>
+
         <StatCard icon={<Activity className="text-indigo-500" />} label="Care Status" value={stats.specialization} color="indigo" sub="Department" />
       </div>
 

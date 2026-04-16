@@ -38,7 +38,9 @@ const userSchema = new mongoose.Schema({
       name: String,
       phone: String,
       relation: String
-    }
+    },
+    resetPasswordOTP: String,
+    resetPasswordExpires: Date
   }
 }, { timestamps: true });
 

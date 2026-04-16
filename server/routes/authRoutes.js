@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { auth } = require('../middleware/auth');
-const { register, login, getProfile, updateProfile } = require('../controllers/authController');
+const { register, login, getProfile, updateProfile, forgotPassword, resetPassword } = require('../controllers/authController');
 const { body } = require('express-validator');
 const { validate } = require('../middleware/validator');
 
@@ -8,7 +8,7 @@ const registerValidation = [
   body('name').notEmpty().withMessage('Name is required').trim(),
   body('email').isEmail().withMessage('Valid email is required').normalizeEmail(),
   body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
-  body('role').isIn(['patient', 'doctor']).withMessage('Invalid role'),
+  body('role').isIn(['patient', 'doctor', 'admin']).withMessage('Invalid role'),
   validate
 ];
 
@@ -40,5 +40,8 @@ router.post('/login', loginValidation, login);
 
 router.get('/profile', auth, getProfile);
 router.put('/profile', auth, updateProfile);
+
+router.post('/forgot-password', forgotPassword);
+router.post('/reset-password', resetPassword);
 
 module.exports = router;

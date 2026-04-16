@@ -205,11 +205,11 @@ export default function PatientDashboard() {
         </Card>
 
         <Card>
-          <CardContent className="flex items-center gap-4">
-            <div className="p-3 bg-amber-50 text-amber-500 rounded-xl"><Activity size={28} /></div>
+          <CardContent className="flex items-center gap-4" onClick={() => navigate('/prescriptions')} style={{ cursor: 'pointer' }}>
+            <div className="p-3 bg-amber-50 text-amber-500 rounded-xl"><FileText size={28} /></div>
             <div>
-              <p className="text-gray-400 text-xs font-bold uppercase tracking-wider">Sugar Level</p>
-              <h3 className="text-2xl font-black text-gray-900">{history[0]?.sugarLevel || '--'} mg/dL</h3>
+              <p className="text-gray-400 text-xs font-bold uppercase tracking-wider">Prescriptions</p>
+              <h3 className="text-2xl font-black text-gray-900">View All</h3>
             </div>
           </CardContent>
         </Card>

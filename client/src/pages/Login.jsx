@@ -72,6 +72,12 @@ export default function Login() {
                 onChange={e => setPassword(e.target.value)}
                 required
               />
+              <div className="flex items-center justify-between">
+                <Link to="/forgot-password" size="sm" className="text-xs font-bold text-primary hover:underline ml-auto">
+                    Forgot password?
+                </Link>
+              </div>
+
               <Button type="submit" loading={loading} icon={LogIn} className="w-full h-14 text-lg">
                 Continue to Dashboard
               </Button>
