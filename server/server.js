@@ -27,11 +27,18 @@ app.use(helmet({
 })); 
 
 const corsOptions = {
-  origin: [
-    'https://doctor-appointment-health-tracker-s.vercel.app',
-    'https://doctor-appointment-health-tracker-s.vercel.ap',
-    'http://localhost:5173'
-  ],
+  origin: function (origin, callback) {
+    const isAllowed = !origin || 
+      origin.includes('vercel.app') || 
+      origin.includes('vercel.ap') || 
+      origin.includes('localhost');
+    
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS Not Allowed'));
+    }
+  },
   credentials: true,
   optionsSuccessStatus: 200
 };
