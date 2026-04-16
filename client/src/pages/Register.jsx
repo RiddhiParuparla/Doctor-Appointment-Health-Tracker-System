@@ -27,7 +27,9 @@ export default function Register() {
       alert('Registration successful! Please login.');
       navigate('/login');
     } catch (err) {
-      alert(err.response?.data?.message || 'Registration failed');
+      console.error("Registration Error:", err);
+      const errorMsg = err.response?.data?.message || err.message || 'Registration failed';
+      alert(`❌ Registration Error: ${errorMsg}`);
     } finally {
       setLoading(false);
     }

@@ -27,8 +27,11 @@ export default function Login() {
       const homeMap = { patient: '/', doctor: '/doctor', admin: '/admin' };
       navigate(homeMap[res.data.user.role]);
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      console.error("Login Error:", err);
+      const errorMsg = err.response?.data?.message || err.message || 'Login failed';
+      alert(`❌ Login Error: ${errorMsg}`);
     } finally {
+
       setLoading(false);
     }
 
