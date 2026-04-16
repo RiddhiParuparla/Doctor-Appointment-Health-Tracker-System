@@ -3,7 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
 
 import { Card, CardContent, Button, Input } from '../components/ui';
-import { UserPlus, Stethoscope, User } from 'lucide-react';
+import { UserPlus, Stethoscope, User, ShieldCheck } from 'lucide-react';
+
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -42,22 +43,30 @@ export default function Register() {
 
         <Card className="p-2 border-none shadow-2xl shadow-indigo-100/50">
           <CardContent className="space-y-6">
-            <div className="flex p-1 bg-gray-50 rounded-xl">
+            <div className="flex p-1 bg-gray-50 rounded-xl gap-1">
               <button 
-                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-bold transition-all ${formData.role === 'patient' ? 'bg-white text-primary shadow-sm' : 'text-gray-400'}`}
+                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-[10px] font-bold transition-all ${formData.role === 'patient' ? 'bg-white text-primary shadow-sm' : 'text-gray-400'}`}
                 onClick={() => setFormData({...formData, role: 'patient'})}
               >
-                <User size={18} />
-                I'm a Patient
+                <User size={14} />
+                Patient
               </button>
               <button 
-                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-bold transition-all ${formData.role === 'doctor' ? 'bg-white text-primary shadow-sm' : 'text-gray-400'}`}
+                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-[10px] font-bold transition-all ${formData.role === 'doctor' ? 'bg-white text-primary shadow-sm' : 'text-gray-400'}`}
                 onClick={() => setFormData({...formData, role: 'doctor'})}
               >
-                <Stethoscope size={18} />
-                I'm a Doctor
+                <Stethoscope size={14} />
+                Doctor
+              </button>
+              <button 
+                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-[10px] font-bold transition-all ${formData.role === 'admin' ? 'bg-white text-primary shadow-sm' : 'text-gray-400'}`}
+                onClick={() => setFormData({...formData, role: 'admin'})}
+              >
+                <ShieldCheck size={14} />
+                Admin
               </button>
             </div>
+
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <Input 
