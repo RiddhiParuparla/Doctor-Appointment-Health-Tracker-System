@@ -27,7 +27,11 @@ app.use(helmet({
 })); 
 
 const corsOptions = {
-  origin: '*', // Temporarily allow all for initialization
+  origin: [
+    'https://doctor-appointment-health-tracker-s.vercel.app',
+    'https://doctor-appointment-health-tracker-s.vercel.ap',
+    'http://localhost:5173'
+  ],
   credentials: true,
   optionsSuccessStatus: 200
 };
