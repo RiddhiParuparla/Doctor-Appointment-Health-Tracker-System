@@ -227,6 +227,16 @@ export default function PatientDashboard() {
             </div>
           </CardContent>
         </Card>
+
+        <Card onClick={() => navigate('/profile')} className="cursor-pointer hover:bg-gray-50 transition-colors border-2 border-indigo-50">
+          <CardContent className="flex items-center gap-4">
+            <div className="p-3 bg-indigo-50 text-indigo-500 rounded-xl"><Settings size={28} /></div>
+            <div>
+              <p className="text-gray-400 text-xs font-bold uppercase tracking-wider">My Account</p>
+              <h3 className="text-xl font-black text-gray-900 leading-tight">Identity Vault</h3>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

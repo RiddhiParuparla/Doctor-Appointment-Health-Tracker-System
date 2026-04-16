@@ -30,6 +30,7 @@ export function Sidebar() {
       { name: 'My Appointments', path: '/appointments', icon: Calendar },
       { name: 'Health Library', path: '/records', icon: Activity },
       { name: 'Prescriptions', path: '/prescriptions', icon: FileText },
+      { name: 'My Profile', path: '/profile', icon: Settings },
     ],
     doctor: [
       { name: 'Dashboard', path: '/doctor', icon: LayoutDashboard },
@@ -37,6 +38,7 @@ export function Sidebar() {
       { name: 'Patients', path: '/doctor/patients', icon: Users },
       { name: 'Health Records', path: '/records', icon: Activity },
       { name: 'Schedule', path: '/doctor/schedule', icon: Clock },
+      { name: 'My Profile', path: '/profile', icon: Settings },
     ],
     admin: [
       { name: 'Overview', path: '/admin', icon: LayoutDashboard },
@@ -44,6 +46,7 @@ export function Sidebar() {
       { name: 'Manage Doctors', path: '/admin/doctors', icon: Stethoscope },
       { name: 'Appointments', path: '/admin/appointments', icon: Calendar },
       { name: 'System Analytics', path: '/admin/analytics', icon: BarChart3 },
+      { name: 'My Profile', path: '/profile', icon: Settings },
     ]
 
   };

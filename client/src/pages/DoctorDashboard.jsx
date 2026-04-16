@@ -131,6 +131,10 @@ export default function DoctorDashboard() {
         </div>
 
         <StatCard icon={<Activity className="text-indigo-500" />} label="Care Status" value={stats.specialization} color="indigo" sub="Department" />
+
+        <div onClick={() => navigate('/profile')} className="cursor-pointer transition-transform hover:scale-105">
+           <StatCard icon={<User className="text-slate-500" />} label="My Profile" value="Manage" color="slate" sub="Identity Vault" />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

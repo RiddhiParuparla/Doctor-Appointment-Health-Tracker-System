@@ -55,6 +55,7 @@ export default function ResetPassword() {
                   value={formData.otp}
                   onChange={e => setFormData({...formData, otp: e.target.value})}
                   required
+                  autoComplete="one-time-code"
                 />
                 <Input 
                   label="New Password" 
