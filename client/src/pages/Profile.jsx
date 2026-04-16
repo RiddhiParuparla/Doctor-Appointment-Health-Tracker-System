@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
+
 import { Card, CardHeader, CardContent, Button, Input } from '../components/ui';
 import { User, ShieldAlert, Phone, Heart, Save, Activity, Mail } from 'lucide-react';
 
@@ -14,7 +15,8 @@ export default function Profile() {
 
   const fetchProfile = async () => {
     try {
-      const res = await axios.get('/api/auth/profile');
+      const res = await api.get('/api/auth/profile');
+
       setProfile(res.data);
     } catch (err) {
       console.error("Profile fetch failed");
@@ -27,7 +29,8 @@ export default function Profile() {
     e.preventDefault();
     setSaving(true);
     try {
-      await axios.put('/api/auth/update-profile', profile);
+      await api.put('/api/auth/update-profile', profile);
+
       alert('✅ Profile updated successfully!');
       fetchProfile();
     } catch (err) {

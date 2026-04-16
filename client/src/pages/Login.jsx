@@ -1,30 +1,27 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
-import { Card, CardContent, Button, Input } from '../components/ui';
-import { LogIn, Zap } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
+import { Mail, Lock, LogIn, ShieldCheck, Heart } from 'lucide-react';
+import { Button, Card, CardHeader, CardContent } from '../components/ui';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     try {
-      const res = await axios.post('/api/auth/login', { email, password });
+      const res = await api.post('/api/auth/login', { email, password });
       login(res.data.user, res.data.token);
-      navigate('/');
+      
+      const homeMap = { patient: '/', doctor: '/doctor', admin: '/admin' };
+      navigate(homeMap[res.data.user.role]);
     } catch (err) {
-      console.error("Login Error:", err);
-      const msg = err.response?.data?.message || err.message || 'Login failed';
-      alert(msg);
-    } finally {
-      setLoading(false);
+      setError(err.response?.data?.message || 'Login failed');
     }
   };
 

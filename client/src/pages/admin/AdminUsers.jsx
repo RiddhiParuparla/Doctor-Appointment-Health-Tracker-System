@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
+
 import { Card, CardHeader, CardContent, Button } from '../../components/ui';
 import { 
   Users, 
@@ -25,7 +26,8 @@ export default function AdminUsers() {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get(`/api/admin/users?search=${search}&role=${filter}`);
+      const res = await api.get(`/api/admin/users?search=${search}&role=${filter}`);
+
       setUsers(res.data);
     } catch (err) {
       console.error("Failed to fetch users");
@@ -37,7 +39,8 @@ export default function AdminUsers() {
   const toggleStatus = async (id, currentStatus) => {
     try {
       const newStatus = currentStatus === 'active' ? 'blocked' : 'active';
-      await axios.patch(`/api/admin/users/status/${id}`, { status: newStatus });
+      await api.patch(`/api/admin/users/status/${id}`, { status: newStatus });
+
       fetchUsers();
     } catch (err) {
       alert("Failed to update user status");
@@ -47,7 +50,8 @@ export default function AdminUsers() {
   const deleteUser = async (id) => {
     if (!window.confirm("Are you sure? This action is irreversible.")) return;
     try {
-      await axios.delete(`/api/admin/users/${id}`);
+      await api.delete(`/api/admin/users/${id}`);
+
       fetchUsers();
     } catch (err) {
       alert("Failed to delete user");

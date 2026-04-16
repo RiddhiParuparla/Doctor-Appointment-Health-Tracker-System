@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
+
 import { Card, CardHeader, CardContent, Button } from '../components/ui';
 import { Calendar, Clock, Stethoscope, Video, MapPin, XCircle, CheckCircle, AlertCircle } from 'lucide-react';
 import { format } from 'date-fns';
@@ -11,7 +12,8 @@ export default function PatientAppointments() {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const res = await axios.get('/api/appointments/patient');
+        const res = await api.get('/api/appointments/patient');
+
         setAppointments(res.data);
       } catch (err) {
         console.error("Failed to fetch appointments");
@@ -25,9 +27,11 @@ export default function PatientAppointments() {
   const handleCancel = async (id) => {
     if (!window.confirm("Are you sure you want to cancel this consultation request?")) return;
     try {
-      await axios.patch(`/api/appointments/cancel/${id}`);
+      await api.patch(`/api/appointments/cancel/${id}`);
+
       
-      const refreshRes = await axios.get('/api/appointments/patient');
+      const refreshRes = await api.get('/api/appointments/patient');
+
       setAppointments(refreshRes.data);
       alert("✅ Appointment cancelled successfully!");
     } catch (err) {

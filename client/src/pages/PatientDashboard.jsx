@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
+
 import { useNavigate } from 'react-router-dom';
 import { Card, CardHeader, CardContent, Button, Input } from '../components/ui';
 import { 
@@ -56,14 +57,15 @@ export default function PatientDashboard() {
 
   const fetchData = async () => {
     try {
-      const [docs, appts, hist] = await Promise.all([
-        axios.get('/api/doctors'),
-        axios.get('/api/appointments/patient'),
-        axios.get('/api/health/history')
+      const [doctorsRes, appointmentsRes, healthRes] = await Promise.all([
+        api.get('/api/doctors'),
+        api.get('/api/appointments/patient'),
+        api.get('/api/health/history')
       ]);
-      setDoctors(docs.data);
-      setAppointments(appts.data);
-      setHistory(hist.data);
+
+      setDoctors(doctorsRes.data);
+      setAppointments(appointmentsRes.data);
+      setHistory(healthRes.data);
     } catch (err) {
       console.error("Data fetch failed");
     }
@@ -111,7 +113,8 @@ export default function PatientDashboard() {
         sugarLevel: parseFloat(vitals.sugarLevel),
         weight: parseFloat(vitals.weight)
       };
-      await axios.post('/api/health/add', data);
+      await api.post('/api/health/add', data);
+
       alert('✅ Vitals logged successfully!');
       setVitals({ bloodPressure: '', sugarLevel: '', weight: '' });
       fetchData();
@@ -127,7 +130,8 @@ export default function PatientDashboard() {
   const handleBook = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/appointments/book', {
+      await api.post('/api/appointments/book', {
+
         doctorId: selectedDoctor._id,
         ...booking
       });

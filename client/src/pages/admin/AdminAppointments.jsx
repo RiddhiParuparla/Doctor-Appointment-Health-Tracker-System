@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
+
 import { Card, CardHeader, CardContent, Button } from '../../components/ui';
 import { 
   Calendar, 
@@ -23,7 +23,8 @@ export default function AdminAppointments() {
 
   const fetchAppointments = async () => {
     try {
-      const res = await axios.get('/api/admin/appointments');
+      const res = await api.get('/api/admin/appointments');
+
       setAppointments(res.data);
     } catch (err) {
       console.error("Failed to fetch system appointments");
@@ -34,7 +35,8 @@ export default function AdminAppointments() {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.patch(`/api/admin/appointments/status/${id}`, { status });
+      await api.patch(`/api/admin/appointments/status/${id}`, { status });
+
       fetchAppointments();
     } catch (err) {
       alert("Override failed");

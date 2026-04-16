@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
+
 import { Card, CardHeader, CardContent, Button } from './ui';
 import { X, Upload, FileText, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
@@ -43,7 +44,8 @@ export default function ReportModal({ isOpen, onClose, patientId, onUploadSucces
 
     try {
       const url = patientId ? `/api/health/reports/${patientId}` : '/api/health/reports';
-      await axios.post(url, formData, {
+      await api.post(url, formData, {
+
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       onUploadSuccess();

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
+
 import { Card, CardHeader, CardContent, Button, Input } from '../components/ui';
 import { Search, Stethoscope, Star, Globe, ShieldCheck, MapPin } from 'lucide-react';
 
@@ -20,7 +21,8 @@ export default function DoctorsList() {
 
   const fetchDoctors = async () => {
     try {
-      const res = await axios.get('/api/doctors');
+      const res = await api.get('/api/doctors');
+
       setDoctors(res.data);
     } catch (err) {
       console.error("Failed to fetch doctors");
@@ -32,7 +34,8 @@ export default function DoctorsList() {
   const handleBook = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/appointments/book', {
+      await api.post('/api/appointments/book', {
+
         doctorId: selectedDoctor._id,
         ...booking
       });

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
+
 import { Card, CardHeader, CardContent, Button, Input } from '../components/ui';
 import { 
   Calendar, 
@@ -31,7 +31,8 @@ export default function DoctorSchedule() {
 
   const fetchProfile = async () => {
     try {
-      const res = await axios.get('/api/doctors/profile');
+      const res = await api.get('/api/doctors/profile');
+
       setProfile(res.data);
     } catch (err) {
       console.error("Failed to load profile");
@@ -57,7 +58,8 @@ export default function DoctorSchedule() {
   const handleSave = async () => {
     setSaving(true);
     try {
-      await axios.put('/api/doctors/profile', profile);
+      await api.put('/api/doctors/profile', profile);
+
       alert('✅ Professional profile and schedule updated successfully!');
     } catch (err) {
       alert('Failed to save changes');

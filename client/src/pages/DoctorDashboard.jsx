@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
+
 import { Card, CardHeader, CardContent, Button, Input } from '../components/ui';
 import { 
   Users, 
@@ -37,12 +38,13 @@ export default function DoctorDashboard() {
 
   const fetchData = async () => {
     try {
-      const [appRes, statsRes, triageRes] = await Promise.all([
-        axios.get('/api/appointments/doctor'),
-        axios.get('/api/doctors/stats'),
-        axios.get('/api/health/triage')
+      const [appointmentsRes, statsRes, triageRes] = await Promise.all([
+        api.get('/api/appointments/doctor'),
+        api.get('/api/doctors/stats'),
+        api.get('/api/health/triage')
       ]);
-      setAppointments(appRes.data);
+
+      setAppointments(appointmentsRes.data);
       setStats(statsRes.data);
       setTriagePatients(triageRes.data);
     } catch (err) {
@@ -54,7 +56,8 @@ export default function DoctorDashboard() {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.patch(`/api/appointments/status/${id}`, { status });
+      await api.patch(`/api/appointments/status/${id}`, { status });
+
       fetchData();
     } catch (err) {
       alert('Update failed');
@@ -63,7 +66,8 @@ export default function DoctorDashboard() {
 
   const fetchHistory = async (patientId) => {
     try {
-      const res = await axios.get(`/api/health/history/${patientId}`);
+      const res = await api.get(`/api/health/history/${patientId}`);
+
       setPatientHistory(res.data);
     } catch (err) {
       console.error("History fetch failed");
@@ -83,7 +87,8 @@ export default function DoctorDashboard() {
         notes: notes
       };
       
-      await axios.post('/api/prescriptions/add', payload);
+      await api.post('/api/prescriptions/add', payload);
+
       alert('Prescription added!');
       setShowPrescriptionModal(false);
       updateStatus(selectedAppointment._id, 'completed');

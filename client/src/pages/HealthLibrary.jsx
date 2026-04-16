@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
+
 import { Card, CardHeader, CardContent, Button } from '../components/ui';
 import { 
   Heart, 
@@ -72,24 +73,17 @@ export default function HealthLibrary() {
       const prescUrl = patientId ? `/api/prescriptions/doctor/view/${patientId}` : '/api/prescriptions/patient';
       const reportsUrl = patientId ? `/api/health/reports/${patientId}` : '/api/health/reports';
 
-      // We use individual try-catches or settle all promises to prevent one failure from breaking everything
-      const results = await Promise.allSettled([
-        axios.get(histUrl),
-        axios.get(prescUrl),
-        axios.get(reportsUrl)
+      const [histRes, prescRes, reportsRes] = await Promise.all([
+        api.get(histUrl),
+        api.get(prescUrl),
+        api.get(reportsUrl)
       ]);
 
-      if (results[0].status === 'fulfilled') setHistory(results[0].value.data);
-      else console.error("History fetch failed", results[0].reason);
-
-      if (results[1].status === 'fulfilled') setPrescriptions(results[1].value.data);
-      else console.error("Prescriptions fetch failed", results[1].reason);
-
-      if (results[2].status === 'fulfilled') setReports(results[2].value.data);
-      else console.error("Reports fetch failed", results[2].reason);
-
+      setHistory(histRes.data);
+      setPrescriptions(prescRes.data);
+      setReports(reportsRes.data);
     } catch (err) {
-      console.error("General fetch error:", err);
+      console.error("Data fetch failed in health library");
     } finally {
       setLoading(false);
     }

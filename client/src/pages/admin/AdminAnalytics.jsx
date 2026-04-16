@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
+
 import { Card, CardHeader, CardContent, Button } from '../../components/ui';
 import { 
   BarChart3, 
@@ -48,7 +48,8 @@ export default function AdminAnalytics() {
 
   const fetchStats = async () => {
     try {
-      const res = await axios.get('/api/admin/stats');
+      const res = await api.get('/api/admin/stats');
+
       setStats(res.data);
     } catch (err) {
       console.error("Analytics fetch failed");

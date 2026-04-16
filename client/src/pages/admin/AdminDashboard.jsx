@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
+
 import { Card, CardHeader, CardContent, Button } from '../../components/ui';
 import { 
   Users, 
@@ -48,8 +49,11 @@ export default function AdminDashboard() {
 
   const fetchStats = async () => {
     try {
-      const res = await axios.get('/api/admin/stats');
-      setStats(res.data);
+      const [statsRes, usersRes] = await Promise.all([
+        api.get('/api/admin/stats'),
+        api.get('/api/admin/users')
+      ]);
+      setStats(statsRes.data);
     } catch (err) {
       console.error("Failed to fetch stats");
     } finally {

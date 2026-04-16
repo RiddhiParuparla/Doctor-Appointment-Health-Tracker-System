@@ -13,7 +13,7 @@ const {
   getMyReports
 } = require('../controllers/reportController');
 
-const upload = require('../utils/upload');
+const { upload } = require('../utils/cloudinary');
 const { body } = require('express-validator');
 const { validate } = require('../middleware/validator');
 

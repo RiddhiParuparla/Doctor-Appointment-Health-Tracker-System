@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
+
 import { Card, CardHeader, CardContent, Button } from '../../components/ui';
 import { 
   Stethoscope, 
@@ -21,7 +22,8 @@ export default function AdminDoctors() {
 
   const fetchDoctors = async () => {
     try {
-      const res = await axios.get('/api/admin/doctors');
+      const res = await api.get('/api/admin/doctors');
+
       setDoctors(res.data);
     } catch (err) {
       console.error("Failed to fetch doctors");
@@ -32,7 +34,8 @@ export default function AdminDoctors() {
 
   const setApproval = async (id, isApproved) => {
     try {
-      await axios.patch(`/api/admin/doctors/approve/${id}`, { isApproved });
+      await api.patch(`/api/admin/doctors/approve/${id}`, { isApproved });
+
       fetchDoctors();
     } catch (err) {
       alert("Verification update failed");

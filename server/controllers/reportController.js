@@ -15,9 +15,10 @@ const uploadReport = async (req, res) => {
       title,
       category,
       notes,
-      fileUrl: `/uploads/${req.file.filename}`,
+      fileUrl: req.file.path,
       fileType: req.file.mimetype.split('/')[1]
     });
+
 
     await report.save();
     res.status(201).json(report);
@@ -39,9 +40,10 @@ const uploadMyReport = async (req, res) => {
       title,
       category,
       notes,
-      fileUrl: `/uploads/${req.file.filename}`,
+      fileUrl: req.file.path,
       fileType: req.file.mimetype.split('/')[1]
     });
+
 
     await report.save();
     res.status(201).json(report);

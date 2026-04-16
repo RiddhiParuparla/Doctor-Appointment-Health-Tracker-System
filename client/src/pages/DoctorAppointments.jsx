@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
+
 import { Card, CardHeader, CardContent, Button, Input } from '../components/ui';
 import { 
   Search, 
@@ -36,7 +37,8 @@ export default function DoctorAppointments() {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get('/api/appointments/doctor');
+      const res = await api.get('/api/appointments/doctor');
+
       setAppointments(res.data);
       
       const today = new Date();
@@ -56,7 +58,8 @@ export default function DoctorAppointments() {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.patch(`/api/appointments/status/${id}`, { status });
+      await api.patch(`/api/appointments/status/${id}`, { status });
+
       fetchData();
     } catch (err) {
       alert('Action failed');
@@ -66,7 +69,8 @@ export default function DoctorAppointments() {
   const fetchPatientDetails = async (app) => {
     setSelectedPatient(app);
     try {
-      const res = await axios.get(`/api/health/history/${app.patientId._id}`);
+      const res = await api.get(`/api/health/history/${app.patientId._id}`);
+
       setPatientHistory(res.data);
     } catch (err) {
       setPatientHistory([]);

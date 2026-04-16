@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
+
 import { Card, CardHeader, CardContent, Button, Input } from '../components/ui';
 import { 
   Users, 
@@ -27,7 +28,8 @@ export default function DoctorPatients() {
 
   const fetchPatients = async () => {
     try {
-      const res = await axios.get('/api/doctors/patients');
+      const res = await api.get('/api/doctors/patients');
+
       setPatients(res.data);
     } catch (err) {
       console.error("Failed to load patients");

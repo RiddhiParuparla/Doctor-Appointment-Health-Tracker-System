@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
+
 import { Card, CardHeader, CardContent, Button, Input } from '../components/ui';
 import { 
   Search, 
@@ -30,7 +31,8 @@ export default function Prescriptions() {
 
   const fetchPrescriptions = async () => {
     try {
-      const res = await axios.get('/api/prescriptions/patient');
+      const res = await api.get('/api/prescriptions/patient');
+
       setPrescriptions(res.data);
     } catch (err) {
       console.error("Prescriptions fetch failed");
