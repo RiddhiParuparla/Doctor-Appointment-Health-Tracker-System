@@ -213,7 +213,7 @@ export default function DoctorDashboard() {
                        </div>
                        <div>
                           <p className="font-black text-lg">{selectedAppointment.patientId.name}</p>
-                          <p className="text-[10px] text-white/30 font-black uppercase tracking-widest">{selectedAppointment.patientId.email}</p>
+                          <p className="text-[10px] text-white/30 font-black tracking-widest">{selectedAppointment.patientId.email}</p>
                        </div>
                     </div>
 

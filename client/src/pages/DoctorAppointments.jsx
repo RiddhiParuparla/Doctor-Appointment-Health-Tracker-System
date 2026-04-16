@@ -160,7 +160,7 @@ export default function DoctorAppointments() {
                                      </div>
                                      <div>
                                         <p className="font-black text-gray-900">{app.patientId.name}</p>
-                                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tight">{app.patientId.email}</p>
+                                        <p className="text-[10px] text-gray-400 font-bold tracking-tight">{app.patientId.email}</p>
                                      </div>
                                   </div>
                                </td>
@@ -228,7 +228,7 @@ export default function DoctorAppointments() {
                       </div>
                       <div>
                          <h2 className="text-2xl font-black">{selectedPatient.patientId.name}</h2>
-                         <p className="text-white/40 font-bold text-xs uppercase tracking-widest">{selectedPatient.patientId.email}</p>
+                         <p className="text-white/40 font-bold text-xs tracking-widest">{selectedPatient.patientId.email}</p>
                       </div>
                    </div>
 
