@@ -14,7 +14,8 @@ import {
   FileText,
   TrendingUp,
   Heart,
-  Settings
+  Settings,
+  Droplets
 } from 'lucide-react';
 import {
   Chart as ChartJS,
@@ -206,11 +207,11 @@ export default function PatientDashboard() {
         </Card>
 
         <Card>
-          <CardContent className="flex items-center gap-4" onClick={() => navigate('/prescriptions')} style={{ cursor: 'pointer' }}>
-            <div className="p-3 bg-amber-50 text-amber-500 rounded-xl"><FileText size={28} /></div>
+          <CardContent className="flex items-center gap-4">
+            <div className="p-3 bg-amber-50 text-amber-500 rounded-xl"><Droplets size={28} /></div>
             <div>
-              <p className="text-gray-400 text-xs font-bold uppercase tracking-wider">Prescriptions</p>
-              <h3 className="text-2xl font-black text-gray-900">View All</h3>
+              <p className="text-gray-400 text-xs font-bold uppercase tracking-wider">Sugar Level (mg/dL)</p>
+              <h3 className="text-2xl font-black text-gray-900">{history[0]?.sugarLevel || '--'}</h3>
             </div>
           </CardContent>
         </Card>
@@ -229,15 +230,6 @@ export default function PatientDashboard() {
           </CardContent>
         </Card>
 
-        <Card onClick={() => navigate('/profile')} className="cursor-pointer hover:bg-gray-50 transition-colors border-2 border-indigo-50">
-          <CardContent className="flex items-center gap-4">
-            <div className="p-3 bg-indigo-50 text-indigo-500 rounded-xl"><Settings size={28} /></div>
-            <div>
-              <p className="text-gray-400 text-xs font-bold uppercase tracking-wider">My Account</p>
-              <h3 className="text-xl font-black text-gray-900 leading-tight">Identity Vault</h3>
-            </div>
-          </CardContent>
-        </Card>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

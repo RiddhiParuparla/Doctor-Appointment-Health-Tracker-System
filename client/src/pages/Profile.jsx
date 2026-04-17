@@ -96,7 +96,6 @@ export default function Profile() {
             <CardContent className="space-y-4">
                 <Input label="Contact Name" value={profile.emergencyInfo?.emergencyContact?.name || ''} onChange={e => setProfile({...profile, emergencyInfo: {...profile.emergencyInfo, emergencyContact: {...profile.emergencyInfo.emergencyContact, name: e.target.value}}})} />
                 <Input label="Phone Number" value={profile.emergencyInfo?.emergencyContact?.phone || ''} onChange={e => setProfile({...profile, emergencyInfo: {...profile.emergencyInfo, emergencyContact: {...profile.emergencyInfo.emergencyContact, phone: e.target.value}}})} />
-                <Input label="Relationship" value={profile.emergencyInfo?.emergencyContact?.relation || ''} onChange={e => setProfile({...profile, emergencyInfo: {...profile.emergencyInfo, emergencyContact: {...profile.emergencyInfo.emergencyContact, relation: e.target.value}}})} />
             </CardContent>
         </Card>
 
