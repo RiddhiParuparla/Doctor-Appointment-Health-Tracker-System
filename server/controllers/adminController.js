@@ -164,6 +164,44 @@ const updateAppointmentStatus = async (req, res) => {
     }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Cascading Delete Logic
+    if (user.role === 'doctor') {
+      const doctorProfile = await Doctor.findOne({ userId: id });
+      if (doctorProfile) {
+        // Delete appointments associated with this doctor
+        await Appointment.deleteMany({ doctorId: doctorProfile._id });
+        // Delete doctor profile
+        await Doctor.findByIdAndDelete(doctorProfile._id);
+      }
+    } else if (user.role === 'patient') {
+      // Delete appointments associated with this patient
+      await Appointment.deleteMany({ patientId: id });
+    }
+
+    // Log deletion before removing user
+    try {
+      await createActivityLog(req.user._id, `Admin deleted ${user.role}: ${user.name}`, 'danger');
+    } catch (logErr) {
+      console.error("Deletion Log Error:", logErr);
+    }
+
+    await User.findByIdAndDelete(id);
+
+    res.json({ message: 'User and associated records deleted' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   getAdminStats,
   getAllUsers,
@@ -172,5 +210,6 @@ module.exports = {
   getAllDoctors,
   approveDoctor,
   getAllAppointments,
-  updateAppointmentStatus
+  updateAppointmentStatus,
+  deleteUser
 };

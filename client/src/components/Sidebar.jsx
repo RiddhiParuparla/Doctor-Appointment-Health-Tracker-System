@@ -46,7 +46,6 @@ export function Sidebar() {
       { name: 'Manage Doctors', path: '/admin/doctors', icon: Stethoscope },
       { name: 'Appointments', path: '/admin/appointments', icon: Calendar },
       { name: 'System Analytics', path: '/admin/analytics', icon: BarChart3 },
-      { name: 'My Profile', path: '/profile', icon: Settings },
     ]
 
   };
