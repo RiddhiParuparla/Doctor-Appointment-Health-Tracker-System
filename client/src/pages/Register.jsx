@@ -47,11 +47,18 @@ export default function Register() {
           <CardContent className="space-y-6">
             <div className="flex p-1 bg-gray-50 rounded-xl gap-1">
               <button 
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-xs font-bold bg-white text-primary shadow-sm"
-                disabled
+                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-[10px] font-bold transition-all ${formData.role === 'patient' ? 'bg-white text-primary shadow-sm' : 'text-gray-400'}`}
+                onClick={() => setFormData({...formData, role: 'patient'})}
               >
                 <User size={14} />
-                Patient Registration
+                Patient
+              </button>
+              <button 
+                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-[10px] font-bold transition-all ${formData.role === 'doctor' ? 'bg-white text-primary shadow-sm' : 'text-gray-400'}`}
+                onClick={() => setFormData({...formData, role: 'doctor'})}
+              >
+                <Stethoscope size={14} />
+                Doctor
               </button>
             </div>
 
