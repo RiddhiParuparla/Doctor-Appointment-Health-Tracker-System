@@ -13,7 +13,8 @@ import {
   AlertCircle,
   FileText,
   TrendingUp,
-  Heart
+  Heart,
+  Settings
 } from 'lucide-react';
 import {
   Chart as ChartJS,

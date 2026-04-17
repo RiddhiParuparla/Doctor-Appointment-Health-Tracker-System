@@ -28,14 +28,21 @@ app.use(helmet({
 
 const corsOptions = {
   origin: function (origin, callback) {
+    const allowedOrigins = [
+      process.env.FRONTEND_URL,
+      'http://localhost:5173',
+      'http://localhost:3000'
+    ];
+    
+    // Check if origin is allowed or if it's a vercel.app subdomain
     const isAllowed = !origin || 
-      origin.includes('vercel.app') || 
-      origin.includes('vercel.ap') || 
-      origin.includes('localhost');
+      allowedOrigins.includes(origin) || 
+      origin.endsWith('.vercel.app');
     
     if (isAllowed) {
       callback(null, true);
     } else {
+      console.log('Blocked Origin:', origin);
       callback(new Error('CORS Not Allowed'));
     }
   },
