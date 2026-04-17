@@ -95,7 +95,7 @@ const forgotPassword = async (req, res) => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     
     user.resetPasswordOTP = otp;
-    user.resetPasswordExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+    user.resetPasswordExpires = Date.now() + 1 * 60 * 1000; // 1 minute strictly
     await user.save();
 
     const { sendOTP } = require('../utils/emailService');
@@ -126,10 +126,23 @@ const resetPassword = async (req, res) => {
     user.resetPasswordExpires = undefined;
     await user.save();
 
-    res.json({ message: 'Password reset successful. Please login.' });
+const verifyOTP = async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+    const user = await User.findOne({ 
+      email, 
+      resetPasswordOTP: otp,
+      resetPasswordExpires: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired OTP' });
+    }
+
+    res.json({ message: 'OTP verified successfully' });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-module.exports = { register, login, getProfile, updateProfile, forgotPassword, resetPassword };
+module.exports = { register, login, getProfile, updateProfile, forgotPassword, verifyOTP, resetPassword };
