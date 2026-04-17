@@ -126,6 +126,12 @@ const resetPassword = async (req, res) => {
     user.resetPasswordExpires = undefined;
     await user.save();
 
+    res.json({ message: 'Password reset successful. Please login.' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 const verifyOTP = async (req, res) => {
   try {
     const { email, otp } = req.body;
